@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Briskware EU Ltd</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script>
+    function toggleMode() {
+      const html = document.documentElement;
+      html.classList.toggle('light');
+      localStorage.setItem('theme', html.classList.contains('light') ? 'light' : 'dark');
+    }
+    window.onload = () => {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'light') {
+        document.documentElement.classList.add('light');
+      }
+    };
+  </script>
+  <style>
+    @font-face {
+      font-family: 'Square417';
+      src: url('square417.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+    :root {
+      --primary-color: #808000;
+    }
+    .text-primary { color: var(--primary-color); }
+    .bg-primary { background-color: var(--primary-color); }
+    .hover\:bg-primary-dark:hover { background-color: #666600; }
+
+    body {
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    html:not(.light) body {
+      background-color: #1f2937; /* dark gray */
+      color: #f3f4f6; /* light gray text */
+    }
+
+    html:not(.light) nav,
+    html:not(.light) section,
+    html:not(.light) footer {
+      background-color: #1f2937;
+      color: #f3f4f6;
+    }
+
+    html.light body {
+      background-color: #f8f8f2;
+      color: #1a202c;
+    }
+
+    html.light nav,
+    html.light section,
+    html.light footer {
+      background-color: #f8f8f2;
+      color: #1a202c;
+    }
+  </style>
+</head>
+<body class="scroll-smooth" style="font-family: 'Square417', sans-serif;">
+
+<!-- Navbar -->
+<nav class="shadow fixed w-full z-10">
+  <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+    <div class="flex items-center space-x-2">
+      <img src="briskware-logo.png" alt="Briskware Logo" class="h-12 w-auto">
+      <span class="text-2xl font-mono tracking-wider align-text-bottom" style="letter-spacing: 0.1em; display: inline-block; position: relative; top: 10px;">.eu</span>
+    </div>
+    <div class="space-x-4">
+      <a href="#home" class="hover:text-primary">Home</a>
+      <a href="#about" class="hover:text-primary">About</a>
+      <a href="#services" class="hover:text-primary">Services</a>
+      <a href="#industries" class="hover:text-primary">Industries</a>
+      <a href="#portfolio" class="hover:text-primary">Case Studies</a>
+      <a href="#team" class="hover:text-primary">Team</a>
+      <a href="#contact" class="hover:text-primary">Contact</a>
+      <button onclick="toggleMode()" class="ml-4 px-2 py-1 border rounded text-sm bg-primary text-white hover:bg-primary-dark">Toggle Mode</button>
+    </div>
+  </div>
+</nav>
+
+<!-- Sections -->
+<section id="home" class="pt-24 px-4 text-center py-20">
+  <h1 class="text-4xl font-bold mb-4 text-primary">Advanced Software Engineering & Data Solutions</h1>
+  <p class="text-lg">Bringing clarity, performance, and reliability to your systems.</p>
+  <div class="mt-6">
+    <a href="#contact" class="bg-primary text-white px-6 py-2 rounded hover:bg-primary-dark">Get in Touch</a>
+  </div>
+</section>
+
+<section id="about" class="px-4 max-w-4xl mx-auto py-16">
+  <h2 class="text-3xl font-bold mb-4 text-primary">About Us</h2>
+  <p class="mb-4">Briskware EU Ltd is a boutique consultancy delivering high-quality, scalable IT solutions. We blend strategic vision with engineering precision.</p>
+  <ul class="list-disc pl-5 space-y-2">
+    <li>Functional and reactive design</li>
+    <li>Robust and scalable architecture</li>
+    <li>Modern development workflows</li>
+    <li>Focus on maintainability and performance</li>
+  </ul>
+</section>
+
+<section id="services" class="px-4 py-16">
+  <div class="max-w-4xl mx-auto">
+    <h2 class="text-3xl font-bold mb-4 text-primary">Services</h2>
+    <div class="space-y-6">
+      <div>
+        <h3 class="text-xl font-semibold">Enterprise Software Engineering</h3>
+        <p>Full-stack systems, APIs, reactive architecture, CI/CD.</p>
+      </div>
+      <div>
+        <h3 class="text-xl font-semibold">Data & Knowledge Engineering</h3>
+        <p>Knowledge Graphs, SPARQL, RDF, OWL, ontology design.</p>
+      </div>
+      <div>
+        <h3 class="text-xl font-semibold">Cloud & DevOps</h3>
+        <p>GCP, AWS, Kubernetes, Terraform, CI/CD automation.</p>
+      </div>
+      <div>
+        <h3 class="text-xl font-semibold">Architecture & Advisory</h3>
+        <p>Domain-driven, event-based systems, modernization.</p>
+      </div>
+      <div>
+        <h3 class="text-xl font-semibold">AI & Automation Readiness</h3>
+        <p>Integration of AI tools, coding assistants, LLM-driven productivity.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="industries" class="px-4 max-w-4xl mx-auto py-16">
+  <h2 class="text-3xl font-bold mb-4 text-primary">Industries</h2>
+  <ul class="list-disc pl-5 space-y-2">
+    <li>Financial Services</li>
+    <li>Energy</li>
+    <li>Public Sector</li>
+    <li>Legal / Regulatory</li>
+  </ul>
+</section>
+
+<section id="portfolio" class="px-4 py-16">
+  <div class="max-w-4xl mx-auto">
+    <h2 class="text-3xl font-bold mb-4 text-primary">Case Studies</h2>
+    <ul class="list-disc pl-5 space-y-2">
+      <li>Knowledge Graph Platform for Investment Banking</li>
+      <li>Trade Execution System Modernization</li>
+      <li>Government Billing Workflow Deployment in 90 Days</li>
+      <li>Warm Home Discount & Energy Bill Support System (Govt/Energy)</li>
+      <li>Equity Options Pricing & Volatility Infrastructure (Finance)</li>
+      <li>Real-time Trade Execution Hub with FIX Connectivity (Finance)</li>
+      <li>Semantic Publishing & Content Management Platform (Media)</li>
+      <li>Telecom Operations Management Tooling at Nokia Networks</li>
+    </ul>
+  </div>
+</section>
+
+<section id="team" class="px-4 max-w-4xl mx-auto py-16">
+  <h2 class="text-3xl font-bold mb-4 text-primary">Our Team</h2>
+  <p>Our consultants have deep technical and industry expertise from top-tier banks, agencies, and tech firms. Each brings strong architectural and hands-on delivery experience to your projects.</p>
+</section>
+
+<section id="contact" class="px-4 py-16">
+  <div class="max-w-4xl mx-auto text-center">
+    <h2 class="text-3xl font-bold mb-4 text-primary">Contact</h2>
+    <p class="mb-6">We'd love to hear about your project. Reach out to start a conversation.</p>
+    <a href="mailto:contact@briskware.eu" class="text-primary underline">contact@briskware.eu</a>
+  </div>
+</section>
+
+<footer class="text-center text-sm py-4">
+  &copy; 2025 Briskware EU Ltd. All rights reserved.
+</footer>
+
+</body>
+</html>
