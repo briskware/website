@@ -13,8 +13,12 @@
     }
     window.onload = () => {
       const savedTheme = localStorage.getItem('theme');
-      if (savedTheme === 'light') {
-        document.documentElement.classList.add('light');
+      if (savedTheme) {
+        document.documentElement.classList.toggle('light', savedTheme === 'light');
+      } else {
+        const currentHour = new Date().getHours();
+        const isDayTime = currentHour >= 6 && currentHour < 18;
+        document.documentElement.classList.toggle('light', isDayTime);
       }
     };
   </script>
@@ -59,16 +63,39 @@
       background-color: #f8f8f2;
       color: #1a202c;
     }
+
+    /* Light mode alternating colors */
+    html.light section:nth-child(odd) {
+      background-color: #f8f8f2; /* Light background for odd sections */
+    }
+
+    html.light section:nth-child(even) {
+      background-color: #e5e7eb; /* Slightly darker background for even sections */
+    }
+
+    /* Dark mode alternating colors */
+    html:not(.light) section:nth-child(odd) {
+      background-color: #2d3748; /* Darker background for odd sections */
+
+    }
+
+    html:not(.light) section:nth-child(even) {
+      background-color: #1f2937; /* Slightly lighter background for even sections */
+    }
+
+    section {
+      scroll-margin-top: 4rem; /* Adjust this value to match the navbar height */
+    }
   </style>
 </head>
 <body class="scroll-smooth" style="font-family: 'Square417', sans-serif;">
 
 <!-- Navbar -->
-<nav class="shadow fixed w-full z-10">
+<nav class="shadow fixed w-full z-10 z-index">
   <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
     <div class="flex items-center space-x-2">
       <img src="briskware-logo.png" alt="Briskware Logo" class="h-12 w-auto">
-      <span class="text-2xl font-mono tracking-wider align-text-bottom" style="letter-spacing: 0.1em; display: inline-block; position: relative; top: 10px;">.eu</span>
+<!--      <span class="text-2xl font-mono tracking-wider align-text-bottom" style="letter-spacing: 0.1em; display: inline-block; position: relative; top: 10px;">.eu</span>-->
     </div>
     <div class="space-x-4">
       <a href="#home" class="hover:text-primary">Home</a>
@@ -84,7 +111,10 @@
 </nav>
 
 <!-- Sections -->
-<section id="home" class="pt-24 px-4 text-center py-20">
+<section id="home" class="pt-1 px-4 text-center py-20">
+  <p class="mb-4">
+    <img src="team.jpg" alt="Team" class="w-full mt-16">
+  </p>
   <h1 class="text-4xl font-bold mb-4 text-primary">Advanced Software Engineering & Data Solutions</h1>
   <p class="text-lg">Bringing clarity, performance, and reliability to your systems.</p>
   <div class="mt-6">
@@ -109,7 +139,7 @@
     <div class="space-y-6">
       <div>
         <h3 class="text-xl font-semibold">Enterprise Software Engineering</h3>
-        <p>Full-stack systems, APIs, reactive architecture, CI/CD.</p>
+        <p>Full-stack systems, APIs, reactive and scalable architecture, CI/CD.</p>
       </div>
       <div>
         <h3 class="text-xl font-semibold">Data & Knowledge Engineering</h3>
@@ -134,10 +164,13 @@
 <section id="industries" class="px-4 max-w-4xl mx-auto py-16">
   <h2 class="text-3xl font-bold mb-4 text-primary">Industries</h2>
   <ul class="list-disc pl-5 space-y-2">
+    <li>Retail and Investment Banking</li>
     <li>Financial Services</li>
     <li>Energy</li>
-    <li>Public Sector</li>
+    <li>Telecommunications</li>
+    <li>Public Sector / Government</li>
     <li>Legal / Regulatory</li>
+    <li>Online Media / Publishing</li>
   </ul>
 </section>
 
@@ -145,13 +178,13 @@
   <div class="max-w-4xl mx-auto">
     <h2 class="text-3xl font-bold mb-4 text-primary">Case Studies</h2>
     <ul class="list-disc pl-5 space-y-2">
-      <li>Knowledge Graph Platform for Investment Banking</li>
+      <li>Deliver of the First Enterprise Knowledge Graph Platform (EKG) in the Financial Industry</li>
       <li>Semantic Publishing & Content Management Platform (Media)</li>
-      <li>Trade Execution System Modernization</li>
-      <li>Equity Options Pricing & Volatility Infrastructure (Finance)</li>
       <li>Real-time Trade Execution Hub with FIX Connectivity (Finance)</li>
-      <li>Billing Workflow Deployment in 90 Days (Government)</li>
-      <li>Warm Home Discount & Energy Bill Support System (Govt/Energy)</li>
+      <li>Reference Data (Finance)</li>
+      <li>Trade Execution System Modernization (Finance)</li>
+      <li>Equity Options Pricing & Volatility Infrastructure (Finance)</li>
+      <li>Billing Workflow Deployment in 90 Days (Energy)</li>
       <li>Operations Management Tooling (Telecom)</li>
     </ul>
   </div>
@@ -165,13 +198,13 @@
 <section id="contact" class="px-4 py-16">
   <div class="max-w-4xl mx-auto text-center">
     <h2 class="text-3xl font-bold mb-4 text-primary">Contact</h2>
-    <p class="mb-6">We'd love to hear about your project. Reach out to start a conversation.</p>
+    <p class="mb-6">We'd love to hear about your IT project needs. Reach out to start a conversation.</p>
     <a href="mailto:contact@briskware.eu" class="text-primary underline">contact@briskware.eu</a>
   </div>
 </section>
 
 <footer class="text-center text-sm py-4">
-  &copy; 2025 Briskware EU Ltd. All rights reserved.
+  &copy; 2025 Briskware Ltd (UK)<br/> All rights reserved.
 </footer>
 
 </body>
