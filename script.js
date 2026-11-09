@@ -2,6 +2,32 @@
 (function () {
   var root = document.documentElement;
 
+  // ---- Company details for the EU entity (the HTML defaults to the UK company) ----
+  // Which elements show is handled in CSS via <html data-entity>; this updates the
+  // page metadata that search engines read.
+  if (root.getAttribute('data-entity') === 'eu') {
+    var euUrl = 'https://briskware.eu/';
+    var canonical = document.querySelector('link[rel="canonical"]');
+    if (canonical) canonical.setAttribute('href', euUrl);
+    var ogUrl = document.querySelector('meta[property="og:url"]');
+    if (ogUrl) ogUrl.setAttribute('content', euUrl);
+    var org = document.getElementById('org-data');
+    if (org) {
+      org.textContent = JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Organization',
+        name: 'Briskware EU Ltd',
+        legalName: 'Briskware EU Limited',
+        url: euUrl,
+        logo: euUrl + 'icon-512.png',
+        email: 'contact@briskware.eu',
+        description: 'Boutique consultancy delivering turnkey software, data and cloud engineering.',
+        identifier: { '@type': 'PropertyValue', propertyID: 'CRO (Ireland)', value: '784993' },
+        parentOrganization: { '@type': 'Organization', name: 'Briskware Ltd', url: 'https://briskware.com/' }
+      }, null, 2);
+    }
+  }
+
   // ---- Theme toggle (initial theme is set inline in <head>) ----
   var themeBtn = document.getElementById('theme-toggle');
   function savedTheme() {
@@ -111,6 +137,7 @@
   }
 
   // ---- Keep the copyright year current ----
-  var year = document.getElementById('year');
-  if (year) year.textContent = new Date().getFullYear();
+  Array.prototype.forEach.call(document.querySelectorAll('.year'), function (el) {
+    el.textContent = new Date().getFullYear();
+  });
 })();

@@ -122,6 +122,11 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 8px); }
   color: var(--accent-ink);
 }
 
+/* ---------- Entity (UK / EU) ---------- */
+/* <html data-entity> is set from the host name before first paint; UK is the default. */
+:root:not([data-entity="eu"]) .eu-only,
+:root[data-entity="eu"] .uk-only { display: none !important; }
+
 /* ---------- Header ---------- */
 .site-header {
   position: sticky;
@@ -138,6 +143,15 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 8px); }
 .logo { display: inline-flex; color: var(--brand); }
 /* Explicit sizes: wordmark aspect ratio is 4449.6 : 751 (about 5.93 : 1). */
 .logo svg { height: 30px; width: 178px; max-width: none; display: block; fill: currentColor; }
+.logo { align-items: center; gap: 8px; text-decoration: none; }
+.entity-tag {
+  padding: 3px 7px 2px;
+  border-radius: 5px;
+  background: var(--accent-bg);
+  color: var(--on-accent);
+  font: 600 13px/1 var(--font-display);
+  letter-spacing: 0.08em;
+}
 
 .site-nav { display: flex; align-items: center; gap: 4px; }
 .site-nav ul { list-style: none; display: flex; gap: 2px; margin: 0; padding: 0; }
@@ -439,6 +453,8 @@ html.modal-open { overflow: hidden; }
 .site-footer { padding-block: 32px; border-top: 1px solid var(--line); font-size: 14px; color: var(--muted); }
 .footer-inner { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px 24px; }
 .site-footer .logo svg { height: 22px; width: 130px; }
+.legal p { line-height: 1.6; }
+.legal a { color: var(--accent-ink); text-underline-offset: 3px; }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 960px) {

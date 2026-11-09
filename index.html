@@ -5,14 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Briskware | Software, Data &amp; Cloud Engineering Consultancy</title>
   <meta name="description" content="Briskware is a boutique consultancy delivering turnkey software, data and cloud engineering: enterprise systems, knowledge graphs, cloud and DevOps, architecture and AI readiness.">
-  <link rel="canonical" href="https://briskware.eu/">
+  <link rel="canonical" href="https://briskware.com/">
+  <link rel="alternate" hreflang="en-GB" href="https://briskware.com/">
+  <link rel="alternate" hreflang="en-IE" href="https://briskware.eu/">
+  <link rel="alternate" hreflang="x-default" href="https://briskware.com/">
 
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Briskware">
   <meta property="og:title" content="Briskware | Turnkey software, data &amp; cloud engineering">
   <meta property="og:description" content="Boutique consultancy delivering enterprise systems from first design to production.">
-  <meta property="og:url" content="https://briskware.eu/">
-  <meta property="og:image" content="https://briskware.eu/og-image.png">
+  <meta property="og:url" content="https://briskware.com/">
+  <meta property="og:image" content="https://briskware.com/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
@@ -23,8 +26,16 @@
   <meta name="theme-color" content="#f6f6f0" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#17180f" media="(prefers-color-scheme: dark)">
 
-  <!-- Set the theme before first paint to avoid a flash of the wrong colours. -->
+  <!-- Before first paint: pick the company (UK or EU) from the host name, and the colour theme. -->
   <script>
+    (function () {
+      // briskware.eu / briskware.ie -> Briskware EU Ltd; everything else -> Briskware Ltd (UK).
+      // Preview override: #as-eu or #as-uk, or ?entity=eu|uk.
+      var host = location.hostname.toLowerCase();
+      var entity = /(^|\.)briskware\.(eu|ie)$/.test(host) ? 'eu' : 'uk';
+      var forced = (location.hash.match(/^#as-(eu|uk)$/) || location.search.match(/[?&]entity=(eu|uk)\b/) || [])[1];
+      document.documentElement.setAttribute('data-entity', forced || entity);
+    })();
     (function () {
       var t;
       try { t = localStorage.getItem('theme'); } catch (e) {}
@@ -40,15 +51,18 @@
   <link rel="stylesheet" href="styles.css">
   <script src="script.js" defer></script>
 
-  <script type="application/ld+json">
+  <script type="application/ld+json" id="org-data">
   {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "Briskware Ltd",
-    "url": "https://briskware.eu/",
-    "logo": "https://briskware.eu/icon-512.png",
-    "email": "contact@briskware.eu",
-    "description": "Boutique consultancy delivering turnkey software, data and cloud engineering."
+    "legalName": "Briskware Limited",
+    "url": "https://briskware.com/",
+    "logo": "https://briskware.com/icon-512.png",
+    "email": "contact@briskware.com",
+    "description": "Boutique consultancy delivering turnkey software, data and cloud engineering.",
+    "identifier": { "@type": "PropertyValue", "propertyID": "Companies House (England and Wales)", "value": "05594105" },
+    "subOrganization": { "@type": "Organization", "name": "Briskware EU Ltd", "url": "https://briskware.eu/" }
   }
   </script>
 </head>
@@ -64,6 +78,7 @@
   <div class="wrap header-inner">
     <a class="logo" href="#home" aria-label="Briskware home">
       <svg viewBox="0 0 4449.6 751" role="img" aria-label="briskware"><use href="#wordmark"/></svg>
+      <span class="entity-tag eu-only" aria-label="EU">EU</span>
     </a>
     <nav class="site-nav" id="site-nav" aria-label="Main">
       <ul id="nav-links">
@@ -1016,8 +1031,10 @@
         <p>We'd love to hear about your IT project needs. Reach out to start a conversation.</p>
       </div>
       <div class="contact-actions">
-        <a class="btn btn-primary" href="mailto:contact@briskware.eu">Email us</a>
-        <a class="email" href="mailto:contact@briskware.eu">contact@briskware.eu</a>
+        <a class="btn btn-primary uk-only" href="mailto:contact@briskware.com">Email us</a>
+        <a class="email uk-only" href="mailto:contact@briskware.com">contact@briskware.com</a>
+        <a class="btn btn-primary eu-only" href="mailto:contact@briskware.eu">Email us</a>
+        <a class="email eu-only" href="mailto:contact@briskware.eu">contact@briskware.eu</a>
       </div>
     </div>
   </div>
@@ -1030,7 +1047,14 @@
     <a class="logo" href="#home" aria-label="Back to top">
       <svg viewBox="0 0 4449.6 751" role="img" aria-label="briskware"><use href="#wordmark"/></svg>
     </a>
-    <p>&copy; <span id="year">2026</span> Briskware Ltd (UK). All rights reserved.</p>
+    <div class="legal">
+      <p class="uk-only">&copy; <span class="year">2026</span> Briskware Ltd. All rights reserved.<br>
+        Registered in England and Wales, company no. 05594105.<br>
+        EU subsidiary: Briskware EU Ltd, <a href="https://briskware.eu/">briskware.eu</a></p>
+      <p class="eu-only">&copy; <span class="year">2026</span> Briskware EU Ltd. All rights reserved.<br>
+        Registered in Ireland, company no. 784993.<br>
+        A subsidiary of Briskware Ltd (UK), <a href="https://briskware.com/">briskware.com</a></p>
+    </div>
   </div>
 </footer>
 
