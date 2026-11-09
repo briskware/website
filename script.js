@@ -59,6 +59,57 @@
     document.querySelectorAll('main section[id]').forEach(function (s) { io.observe(s); });
   }
 
+  // ---- Service and case study cards open in a shared dialog ----
+  var dialog = document.getElementById('case-dialog');
+  var items = document.querySelectorAll('.svc, .case');
+  if (dialog && typeof dialog.showModal === 'function') {
+    var art = dialog.querySelector('.cd-art');
+    var title = document.getElementById('case-dialog-title');
+    var eyebrow = document.getElementById('case-dialog-sector');
+    var content = dialog.querySelector('.cd-content');
+
+    var openItem = function (item) {
+      var isCase = item.classList.contains('case');
+      var detail = item.querySelector(isCase ? '.case-detail' : '.svc-body');
+      var svg = item.querySelector(isCase ? '.case-art svg' : '.svc-art svg');
+      art.innerHTML = '';
+      art.appendChild(svg.cloneNode(true));
+      title.textContent = item.querySelector(isCase ? '.case-title' : '.svc-title').textContent;
+      eyebrow.textContent = isCase ? 'Case study · ' + item.querySelector('.sector').textContent : 'Service';
+      content.innerHTML = detail.innerHTML;
+      dialog.scrollTop = 0;
+      if (!dialog.open) {
+        root.classList.add('modal-open');
+        dialog.showModal();
+      }
+    };
+
+    Array.prototype.forEach.call(items, function (item) {
+      item.querySelector('button').addEventListener('click', function () { openItem(item); });
+    });
+    dialog.querySelector('.cd-close').addEventListener('click', function () { dialog.close(); });
+    dialog.addEventListener('click', function (e) {
+      // "Related work" links switch the dialog to that case study.
+      var link = e.target.closest('[data-case]');
+      if (link) {
+        var target = document.getElementById(link.getAttribute('data-case'));
+        if (target) openItem(target);
+        return;
+      }
+      // A click on the backdrop lands on the dialog element itself.
+      if (e.target === dialog) dialog.close();
+    });
+    dialog.addEventListener('close', function () { root.classList.remove('modal-open'); });
+  } else {
+    // Fallback for browsers without <dialog>: expand the details in place.
+    Array.prototype.forEach.call(items, function (item) {
+      item.querySelector('button').addEventListener('click', function () {
+        var detail = item.querySelector('.case-detail, .svc-detail');
+        detail.hidden = !detail.hidden;
+      });
+    });
+  }
+
   // ---- Keep the copyright year current ----
   var year = document.getElementById('year');
   if (year) year.textContent = new Date().getFullYear();
