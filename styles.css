@@ -126,6 +126,9 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 8px); }
 /* <html data-entity> is set from the host name before first paint; UK is the default. */
 :root:not([data-entity="eu"]) .eu-only,
 :root[data-entity="eu"] .uk-only { display: none !important; }
+/* The logo tag reads IE on briskware.ie and EU on briskware.eu (data-site). */
+:root:not([data-site="ie"]) .tag-ie,
+:root[data-site="ie"] .tag-eu { display: none !important; }
 
 /* ---------- Header ---------- */
 .site-header {

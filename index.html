@@ -30,11 +30,14 @@
   <script>
     (function () {
       // briskware.eu / briskware.ie -> Briskware EU Ltd; everything else -> Briskware Ltd (UK).
-      // Preview override: #as-eu or #as-uk, or ?entity=eu|uk.
+      // data-site="ie" additionally switches the logo tag from EU to IE on briskware.ie.
+      // Preview override: #as-eu, #as-ie or #as-uk, or ?entity=eu|ie|uk.
       var host = location.hostname.toLowerCase();
-      var entity = /(^|\.)briskware\.(eu|ie)$/.test(host) ? 'eu' : 'uk';
-      var forced = (location.hash.match(/^#as-(eu|uk)$/) || location.search.match(/[?&]entity=(eu|uk)\b/) || [])[1];
-      document.documentElement.setAttribute('data-entity', forced || entity);
+      var site = /(^|\.)briskware\.ie$/.test(host) ? 'ie' : /(^|\.)briskware\.eu$/.test(host) ? 'eu' : 'uk';
+      var forced = (location.hash.match(/^#as-(eu|ie|uk)$/) || location.search.match(/[?&]entity=(eu|ie|uk)\b/) || [])[1];
+      site = forced || site;
+      document.documentElement.setAttribute('data-entity', site === 'uk' ? 'uk' : 'eu');
+      document.documentElement.setAttribute('data-site', site);
     })();
     (function () {
       var t;
@@ -78,7 +81,8 @@
   <div class="wrap header-inner">
     <a class="logo" href="#home" aria-label="Briskware home">
       <svg viewBox="0 0 4449.6 751" role="img" aria-label="briskware"><use href="#wordmark"/></svg>
-      <span class="entity-tag eu-only" aria-label="EU">EU</span>
+      <span class="entity-tag eu-only tag-eu">EU</span>
+      <span class="entity-tag eu-only tag-ie">IE</span>
     </a>
     <nav class="site-nav" id="site-nav" aria-label="Main">
       <ul id="nav-links">
