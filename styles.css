@@ -260,6 +260,29 @@ svg.net { display: block; width: 100%; height: auto; }
 .net .node { fill: var(--surface); stroke: var(--line); stroke-width: 1.5; }
 .net .hub { fill: var(--accent-soft); stroke: var(--brand); stroke-width: 2; }
 .net .hub-b { fill: var(--brand); font-family: var(--font-display); font-size: 50px; font-weight: 600; }
+/* The hub breathes, and soft rings ripple out from behind it. Scaling is around the hub centre,
+   which is the origin of its translated group.
+   Tuning knobs — change these to make the hub calmer or livelier: */
+.net {
+  --hub-cycle: 4.8s;        /* one breath; rings leave every half cycle. Longer = calmer */
+  --hub-grow: 1.035;        /* how much the bubble swells at its peak (1 = not at all) */
+  --hub-glow: 24%;          /* tint strength at the peak; at rest it is ~12% */
+  --ring-reach: 1.75;       /* how far the rings travel, as a multiple of the bubble size */
+  --ring-strength: 0.55;    /* ring opacity as it leaves the bubble (0 = no rings) */
+  --ring-width: 1.5;        /* ring line thickness */
+}
+.net .hub-base { fill: var(--bg); }
+.net .hub { animation: hub-breathe var(--hub-cycle) ease-in-out infinite; }
+.net .hub-pulse { fill: none; stroke: var(--brand); stroke-width: var(--ring-width); opacity: 0; animation: hub-pulse var(--hub-cycle) ease-out infinite; }
+.net .hub-pulse.p2 { animation-delay: calc(var(--hub-cycle) / 2); }
+@keyframes hub-breathe {
+  0%, 100% { fill: var(--accent-soft); transform: scale(1); }
+  50% { fill: color-mix(in srgb, var(--brand) var(--hub-glow), transparent); transform: scale(var(--hub-grow)); }
+}
+@keyframes hub-pulse {
+  0% { opacity: var(--ring-strength); transform: scale(1); }
+  100% { opacity: 0; transform: scale(var(--ring-reach)); }
+}
 .net .ico { fill: none; stroke: var(--brand); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .net .ico .dot { fill: var(--brand); stroke: none; }
 .net .lbl { fill: var(--muted); font-family: var(--font-body); font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; }
