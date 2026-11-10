@@ -28,6 +28,49 @@
     }
   }
 
+  // ---- Pre-fill email links with a subject and a short questionnaire ----
+  // One template for every mailto link. The subject names the site the visitor is on
+  // (e.g. briskware.ie); opened from disk, it falls back to the address's own domain.
+  var emailBody = [
+    'Hello,',
+    '',
+    '(Answer as much or as little as you like.)',
+    '',
+    'ABOUT YOU',
+    'Name:',
+    'Company:',
+    'Role:',
+    'Phone (optional):',
+    '',
+    'THE PROJECT',
+    'What would you like to build, fix or improve?',
+    '',
+    'Where is it today? (idea / prototype / live system / legacy replacement)',
+    '',
+    'Which areas are involved? (software / data / capital markets / cloud & DevOps / architecture / AI & automation / not sure)',
+    '',
+    'TIMING AND SCOPE',
+    'Ideal start date:',
+    'Any hard deadlines?',
+    'Budget or team size, if known:',
+    '',
+    'ANYTHING ELSE',
+    'Technologies, constraints or context we should know:',
+    '',
+    'How did you hear about us?',
+    '',
+    'Thanks,',
+    ''
+  ].join('\r\n');
+  var host = location.hostname.replace(/^www\./, '');
+  Array.prototype.forEach.call(document.querySelectorAll('a[href^="mailto:"]'), function (a) {
+    var address = a.getAttribute('href').slice(7).split('?')[0];
+    var site = host || address.split('@')[1];
+    a.setAttribute('href', 'mailto:' + address +
+      '?subject=' + encodeURIComponent('Project enquiry via ' + site) +
+      '&body=' + encodeURIComponent(emailBody));
+  });
+
   // ---- Theme toggle (initial theme is set inline in <head>) ----
   var themeBtn = document.getElementById('theme-toggle');
   function savedTheme() {
